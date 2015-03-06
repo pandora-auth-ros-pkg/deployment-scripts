@@ -1,0 +1,56 @@
+---
+
+# Main configuration for the Jenkins slave
+
+- name: 'Creating user for jenkins'
+  user:
+      name=jenkins
+      home=/var/lib/jenkins
+      shell=/bin/bash
+- name: 'Importing ssh-key'
+  authorized_key:
+      user=jenkins
+      key="{{master_ssh_key}}"
+- name: 'Installing virtualbox'
+  apt:
+      name={{ item }}
+      state=latest
+  with_items:
+      - dpkg-dev
+      - virtualbox-dkms
+- name: 'Installing linux-headers'
+  apt:
+      name=linux-headers-{{ header_version }}
+      state=latest
+      force=yes
+- name: 'Downloading latest vagrant'
+  get_url:
+      url={{ vagrant_64.url }}
+      dest=/tmp/
+- name: 'Installing vagrant'
+  shell: dpkg -i /tmp/{{ vagrant_64.filename }}
+- name: 'Reconfiguring virtualbox'
+  shell: sudo dpkg-reconfigure virtualbox-dkms
+- name: 'Installing vagrant python API'
+  pip:
+      name=python-vagrant
+      state=latest
+- name: 'Ensure required packages are installed for Java 7'
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - python-software-properties
+
+- name: 'Add Java repository to sources'
+  apt_repository: repo='ppa:webupd8team/java'
+
+- name: 'Autoaccept license for Java'
+  shell: echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+- name: 'Update APT package cache'
+  apt: update_cache=yes
+
+- name: 'Install Java 7'
+  apt: name=oracle-java7-installer state=latest install_recommends=yes
+
+- name: 'Set Java 7 Env'
+  apt: name=oracle-java7-set-default state=latest install_recommends=yes

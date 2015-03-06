@@ -1,0 +1,21 @@
+---
+
+# Main configuration file for the Jenkins master
+
+- name: 'Setting up keys for ROS'
+  apt_key:
+      url={{ ros_key_url }}
+      state=present
+- name: 'Setup sources.list for ROS'
+  apt_repository:
+      repo='deb http://packages.ros.org/ros/ubuntu precise main'
+      state=present
+      update_cache=yes
+- name: 'Install ROS dependencies'
+  apt:
+      name={{ item }}
+      state=latest
+      update_cache=yes
+  with_items:
+      - ros-hydro-ros
+      - ros-hydro-rosdoc-lite

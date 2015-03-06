@@ -1,0 +1,5 @@
+---
+
+# Jenkins variables
+jenkins_key: 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key'
+jenkins_repo: 'deb http://pkg.jenkins-ci.org/debian binary'

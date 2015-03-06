@@ -1,0 +1,8 @@
+---
+
+
+- hosts: pandora
+  sudo: yes
+  roles:
+      - base
+      - jenkins-slave

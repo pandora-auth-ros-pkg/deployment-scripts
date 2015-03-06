@@ -1,0 +1,6 @@
+---
+
+# ROS variables
+ros_apt_repo: "deb http://packages.ros.org/ros/ubuntu precise main"
+ros_key_url: "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key"
+

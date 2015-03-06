@@ -1,0 +1,57 @@
+---
+
+# Main configuration for the base role
+- name: 'Update cache'
+  apt:
+      update_cache=yes
+- name: 'Installing aptitude'
+  apt:
+      name=aptitude
+- name: 'Upgrading system'
+  apt:
+      upgrade=yes
+- name: 'Ensure python-apt is installed'
+  apt:
+      name=python-apt
+      state=latest
+- name: 'Downloading pip'
+  get_url:
+      url=https://bootstrap.pypa.io/get-pip.py
+      dest=/tmp/
+- name: 'Installing pip'
+  shell: sudo python /tmp/get-pip.py
+- name: 'Ensure cmake is installed'
+  sudo: yes
+  apt:
+      name=cmake
+      state=latest
+- name: 'Add ppa for git'
+  apt_repository:
+      repo={{ git_ppa }}
+      update_cache=yes
+- name: 'Ensure git is installed'
+  apt:
+      name=git
+      state=latest
+- name: 'Install build tools'
+  apt:
+      name={{ item }}
+      state=latest
+  with_items:
+      - python-dev
+      - g++
+      - autoconf
+      - python2.7-dev
+- name: 'Enusre basic python packages are installed'
+  pip:
+      name={{ item }}
+      state=latest
+  with_items:
+      - virtualenv
+      - pyyaml
+      - pycrypto
+      - fabric
+      - email
+      - requests
+      - pandoradep
+      - argparse

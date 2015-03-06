@@ -1,0 +1,17 @@
+---
+
+# Main configuration file for a Jenkins node
+
+- name: 'Setting up keys for jenkins'
+  apt_key:
+      url={{ jenkins_key }}
+      state=present
+- name: 'Setting up sources.list for jenkins'
+  apt_repository:
+      repo='deb http://pkg.jenkins-ci.org/debian binary/'
+      state=present
+      update_cache=yes
+- name: 'Ensure jenkins is installed'
+  apt:
+      name=jenkins
+      state=latest

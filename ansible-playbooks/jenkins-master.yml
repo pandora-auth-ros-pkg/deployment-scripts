@@ -1,0 +1,9 @@
+---
+
+
+- hosts: vagrant
+  sudo: yes
+  roles:
+      - base
+      - jenkins
+      - jenkins-master
