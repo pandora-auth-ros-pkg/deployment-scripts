@@ -1,0 +1,39 @@
+---
+
+ros_repo: "deb http://packages.ros.org/ros/ubuntu precise main"
+
+ros_key_url: "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key"
+
+robot_workspace: "/home/pandora/pandora_test"
+
+pandora_source: "/home/pandora/pandora_test/src"
+
+pandora_home_ssh: "/home/pandora/ssh_ansible"
+
+ros_bash: "/opt/ros/hydro/setup.bash"
+
+pandora_repos:
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_data_fusion.git", version: "hydro-devel", name: "pandora_data_fusion"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_navigation.git", version: "hydro-devel", name: "pandora_navigation"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_vision.git", version: "hydro-devel", name: "pandora_vision"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_common.git", version: "hydro-devel", name: "pandora_common"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_slam.git", version: "hydro-devel", name: "pandora_slam"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_control.git", version: "hydro-devel", name: "pandora_control"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_hardware_interface.git", version: "hydro-devel", name: "pandora_hardware_interface"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_fsm.git", version: "hydro-devel", name: "pandora_fsm"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_models.git", version: "hydro-devel", name: "pandora_models"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_diagnostics.git", version: "hydro-devel", name: "pandora_diagnostics"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_launchers.git", version: "hydro-devel", name: "pandora_launchers"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_visualization.git", version: "hydro-devel", name: "pandora_visualization"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_rqt_gui.git", version: "hydro-devel", name: "pandora_rqt_gui"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_audio.git", version: "hydro-devel", name: "pandora_audio"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/open_tld.git", version: "hydro-devel", name: "open_tld"}
+
+ros_deps:
+  - python-catkin-pkg
+  - python-rosdep
+  - python-wstool
+  - ros-hydro-catkin
+  - ros-hydro-ros
+
+host_ip: 192.168.0.106

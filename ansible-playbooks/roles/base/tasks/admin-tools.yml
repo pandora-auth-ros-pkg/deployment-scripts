@@ -1,0 +1,14 @@
+---
+
+# Admin tools
+
+- name: Installing admin tools
+  apt: name={{ item }} state=latest
+  with_items:
+    - htop
+    - beep
+    - iftop
+    - iotop
+    - tree
+    - hddtemp
+    - lm-sensors

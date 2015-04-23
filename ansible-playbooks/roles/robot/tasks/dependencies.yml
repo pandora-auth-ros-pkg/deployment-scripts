@@ -1,0 +1,30 @@
+---
+
+# Installing ROS and other dependencies
+
+- name: Add ROS into sources.list
+  sudo: yes
+  apt_repository: repo="{{ ros_repo }}"
+
+- name: Add ROS key
+  sudo: yes
+  apt_key: url="{{ ros_key_url }}" state=present
+
+- name: Installing ROS dependencies
+  sudo: yes
+  apt: name={{ item }} state=latest force=yes
+  with_items: "{{ ros_deps }}"
+
+- name: Installing drivers
+  sudo: yes
+  apt: name={{ item }} state=latest force=yes
+  with_items:
+    - libgsl0-dev
+
+- name: Installing ROS hydro
+  sudo: yes
+  apt: name=ros-hydro-ros-base force=yes
+
+#- name: Initializing rosdep
+  #sudo: yes
+  #command: rosdep init

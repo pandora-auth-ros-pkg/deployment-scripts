@@ -1,0 +1,8 @@
+---
+
+- include: general_conf.yml tags=config
+- include: rpi_conf.yml tags=rpi
+- include: dependencies.yml tags=deps
+- include: pandora_deployment.yml tags=pandora
+
+

@@ -1,6 +1,2 @@
-[vagrant]
-192.168.10.10 ansible_connection=ssh ansible_ssh_user=vagrant
-
-[test]
-10.10.10.10 ansible_connection=ssh ansible_ssh_user=vagrant
-
+[robot]
+localhost ansible_connection=ssh ansible_ssh_user=pandora

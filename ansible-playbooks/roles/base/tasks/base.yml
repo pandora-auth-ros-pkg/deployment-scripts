@@ -1,0 +1,56 @@
+---
+
+# Main configuration for the base role
+- name: Update cache
+  sudo: yes
+  apt:
+      update_cache=yes
+- name: Installing aptitude
+  apt:
+      name=aptitude
+- name: Upgrading system
+  sudo: yes
+  apt:
+      upgrade=yes
+- name: Ensure python-apt is installed
+  sudo: yes
+  apt:
+      name=python-apt
+      state=latest
+- name: Installing python-setuptools
+  sudo: yes
+  apt:
+      name=python-setuptools
+      state=latest
+- name: Installing pip
+  easy_install: name=pip
+
+- name: 'Ensure cmake is installed'
+  sudo: yes
+  apt:
+      name=cmake
+      state=latest
+- name: 'Install build tools'
+  sudo: yes
+  apt:
+      name={{ item }}
+      state=latest
+  with_items:
+      - python-dev
+      - g++
+      - autoconf
+      - python2.7-dev
+- name: 'Enusre basic python packages are installed'
+  sudo: yes
+  pip:
+      name={{ item }}
+      state=latest
+  with_items:
+      - virtualenv
+      - pyyaml
+      - pycrypto
+      - fabric
+      - email
+      - requests
+      - pandoradep
+      - argparse

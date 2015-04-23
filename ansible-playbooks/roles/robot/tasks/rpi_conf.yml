@@ -1,0 +1,46 @@
+---
+
+# Network configuration for the Rasberry PI
+
+- name: Enalbe IP forwarding
+  sudo: yes
+  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+
+- name: Enabling NAT in the kernel
+  sudo: yes
+  command: sudo iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+
+- name: Making the changes permanent
+  sudo: yes
+  command: sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+
+- name: Overwriting /etc/network/interfaces with the permanent changes
+  sudo: yes
+  copy: src=interfaces dest=/etc/network/ force=yes
+
+- name: Create directory for the raspberry pi scripts
+  sudo: yes
+  file:
+    path=/home/pandora/rpi-scripts
+    owner=pandora
+    group=pandora
+    recurse=yes
+    state=directory
+
+- name: Copy pc_ros_network_config
+  sudo: yes
+  copy:
+    src=pc_ros_network_config.sh
+    dest=/home/pandora/rpi-scripts/
+    owner=pandora
+    group=pandora
+    force=yes
+
+- name: Copy rpi_ros_network_config
+  sudo: yes
+  copy:
+    src=rpi_ros_network_config.sh
+    dest=/home/pandora/rpi-scripts/
+    owner=pandora
+    group=pandora
+    force=yes
