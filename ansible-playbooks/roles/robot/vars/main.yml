@@ -4,9 +4,9 @@ ros_repo: "deb http://packages.ros.org/ros/ubuntu precise main"
 
 ros_key_url: "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key"
 
-robot_workspace: "/home/pandora/pandora_test"
+robot_workspace: "/home/pandora/pandora_ws"
 
-pandora_source: "/home/pandora/pandora_test/src"
+pandora_source: "/home/pandora/pandora_ws/src"
 
 pandora_home_ssh: "/home/pandora/ssh_ansible"
 

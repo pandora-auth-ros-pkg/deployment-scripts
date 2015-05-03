@@ -23,6 +23,7 @@
       name=python-setuptools
       state=latest
 - name: Installing pip
+  sudo: yes
   easy_install: name=pip
 
 - name: 'Ensure cmake is installed'

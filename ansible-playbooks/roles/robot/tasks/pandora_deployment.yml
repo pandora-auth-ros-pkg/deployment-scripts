@@ -21,10 +21,12 @@
   copy: src=github_key dest={{ pandora_home_ssh }}/private_key owner=pandora group=pandora mode=600
 
 - name: Downloading PANDORA's source code
+  tags: code
   git:
     repo={{ item.url }}
     dest={{ pandora_source }}/{{ item.name }}
     version={{ item.version }}
+    accept_hostkey=yes
     key_file="{{ pandora_home_ssh }}/private_key"
   with_items: "{{ pandora_repos }}"
 
@@ -35,7 +37,7 @@
   raw: rosdep update
 
 - name: ROSdep install
-  raw: cd {{ robot_workspace }} && rosdep install --from-paths src --ignore-src --rosdistro hydro -y
+  raw: cd {{ robot_workspace }} && sudo rosdep install --from-paths src --ignore-src --rosdistro hydro -y
 
 - name: Making pandora the owner
   sudo: yes

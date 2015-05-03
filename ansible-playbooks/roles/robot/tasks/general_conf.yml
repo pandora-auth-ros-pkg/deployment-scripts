@@ -28,4 +28,5 @@
 # Giving access to groups
 
 - name: Add pandora to dialout and video group
+  sudo: yes
   user: name=pandora groups=dialout,video append=yes

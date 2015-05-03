@@ -4,6 +4,7 @@
 
 - name: Installing admin tools
   apt: name={{ item }} state=latest
+  sudo: yes
   with_items:
     - htop
     - beep
