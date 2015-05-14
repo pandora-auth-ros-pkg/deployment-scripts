@@ -12,6 +12,10 @@ pandora_home_ssh: "/home/pandora/ssh_ansible"
 
 ros_bash: "/opt/ros/hydro/setup.bash"
 
+external_rasp_ip: "10.10.1.1"
+
+internal_rasp_ip: "10.1.1.2"
+
 pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_data_fusion.git", version: "hydro-devel", name: "pandora_data_fusion"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_navigation.git", version: "hydro-devel", name: "pandora_navigation"}
@@ -36,4 +40,4 @@ ros_deps:
   - ros-hydro-catkin
   - ros-hydro-ros
 
-host_ip: 192.168.0.106
+host_ip: "192.168.0.106"

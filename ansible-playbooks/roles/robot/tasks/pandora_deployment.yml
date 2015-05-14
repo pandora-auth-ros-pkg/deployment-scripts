@@ -11,14 +11,16 @@
     recurse=yes
     state=directory
 
-#- name: Initialize catkin workspace
-  #raw: source {{ ros_bash }} && cd {{ pandora_source }} && catkin_init_workspace
+- name: Initialize catkin workspace
+  raw: source {{ ros_bash }} && cd {{ pandora_source }} && catkin_init_workspace
 
 - name: Create temp directory for the private key
   file: path={{ pandora_home_ssh }} state=directory
+  tags: code
 
 - name: Copy private key
   copy: src=github_key dest={{ pandora_home_ssh }}/private_key owner=pandora group=pandora mode=600
+  tags: code
 
 - name: Downloading PANDORA's source code
   tags: code

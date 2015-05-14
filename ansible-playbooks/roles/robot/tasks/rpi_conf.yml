@@ -6,9 +6,13 @@
   sudo: yes
   sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
 
-- name: Enabling NAT in the kernel
+- name: Enable NAT in the kernel for all interfaces
   sudo: yes
-  command: sudo iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+  command: sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+
+- name: Expose raspberry pi
+  sudo: yes
+  command: sudo iptables -t nat -A PREROUTING -d {{external_rasp_ip}} -j DNAT --to-destination  {{internal_rasp_ip}}
 
 - name: Making the changes permanent
   sudo: yes
