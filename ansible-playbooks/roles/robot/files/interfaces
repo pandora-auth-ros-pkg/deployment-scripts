@@ -13,7 +13,7 @@ wpa-conf /etc/wpa_supplicant.conf
 # The ethernet eth0 interface
 auto eth0
 iface eth0 inet static
-  address 10.0.1.2
+  address 10.1.1.1
   netmask 255.255.255.0
 
 # The ethernet eth1 interface
