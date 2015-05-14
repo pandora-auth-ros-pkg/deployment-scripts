@@ -16,6 +16,12 @@ iface eth0 inet static
   address 10.1.1.1
   netmask 255.255.255.0
 
+# Virtual network interface
+auto eth0:1
+iface eth0:1 inet static
+    address 10.10.1.1
+    netmask 255.255.255.0
+
 # The ethernet eth1 interface
 auto eth1
 iface eth1 inet static
