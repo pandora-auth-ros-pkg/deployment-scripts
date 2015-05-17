@@ -25,6 +25,14 @@
     owner=pandora
     group=pandora
 
+- name: Copying the .bash_aliases
+  sudo: yes
+  copy:
+    src=.bash_aliases
+    dest=/home/pandora
+    owner=pandora
+    group=pandora
+
 # Giving access to groups
 
 - name: Add pandora to dialout and video group
