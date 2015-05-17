@@ -1,2 +1,2 @@
 [robot]
-localhost ansible_connection=ssh ansible_ssh_user=pandora
+robot ansible_connection=ssh ansible_ssh_user=pandora

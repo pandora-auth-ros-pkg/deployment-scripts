@@ -57,3 +57,4 @@ target/
 .*.swp
 
 github_key
+github_key.pub
