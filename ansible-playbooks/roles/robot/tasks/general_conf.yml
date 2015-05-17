@@ -33,6 +33,15 @@
     owner=pandora
     group=pandora
 
+- name: Copying the repostatus
+  sudo: yes
+  copy:
+    src=repostatus.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+
 # Giving access to groups
 
 - name: Add pandora to dialout and video group
