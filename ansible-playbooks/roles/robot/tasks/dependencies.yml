@@ -26,5 +26,5 @@
   apt: name=ros-hydro-ros-base force=yes
 
 #- name: Initializing rosdep
-  #sudo: yes
+#  sudo: yes
 #  command: rosdep init

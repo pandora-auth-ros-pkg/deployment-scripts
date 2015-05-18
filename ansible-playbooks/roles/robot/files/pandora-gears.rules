@@ -9,3 +9,6 @@ KERNEL=="video*", ATTRS{serial}=="F88DC880", ATTRS{idProduct}=="081b", SYMLINK+=
 KERNEL=="video*", ATTRS{serial}=="60134170", ATTRS{idProduct}=="081b", SYMLINK+="right_camera"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="fc5f", MODE="666", SYMLINK+="linear"
 SUBSYSTEM=="usb|usb_device", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="a8b0", GROUP="dialout", SYMLINK+="epos2"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1d27", ATTR{idProduct}=="0601", SYMLINK+="xtion"
+SUBSYSTEM=="usb", ATTR{idVendor}=="b1ac", ATTR{idProduct}=="f000", MODE="0666", SYMLINK+="pixy"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1fc9", ATTR{idProduct}=="000c", MODE="0666"

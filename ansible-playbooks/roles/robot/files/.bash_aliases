@@ -19,6 +19,7 @@ alias batteries='rostopic echo /sensors/battery'
 
 # Scripts
 alias repostatus='repostatus.sh ~/pandora_ws/src'
+alias device_check='device_check.sh'
 
 # Connections
 alias raspberry='ssh pandora@10.0.1.1'

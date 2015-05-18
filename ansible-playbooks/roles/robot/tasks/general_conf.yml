@@ -42,6 +42,23 @@
     group=pandora
     mode="u=rwx"
 
+- name: Copying the device_check
+  sudo: yes
+  copy:
+    src=device_check.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+
+- name: Copying the Findlibusb-1.0
+  sudo: yes
+  copy:
+    src=Findlibusb-1.0.cmake
+    dest=/usr/share/cmake-2.8/Modules
+    owner=pandora
+    group=pandora
+
 # Giving access to groups
 
 - name: Add pandora to dialout and video group

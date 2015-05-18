@@ -18,7 +18,7 @@ for repo in $DIRS; do
     then
       echo -e '\033[1;32m'${changes[$diff]}" "'\033[0;34m'$branch'\033[0m'" --> " '\033[0;37m'$repo ;
     else
-      echo -e '\033[1;32m'${changes[$diff]}" "'\033[0;31m'$branch'\033[0m' " --> " $repo ;
+      echo -e '\033[1;32m'${changes[$diff]}" "'\033[0;31m'$branch'\033[0m'" --> " $repo ;
   fi
   cd $CURR;
 done
