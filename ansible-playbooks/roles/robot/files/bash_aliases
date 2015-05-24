@@ -1,3 +1,10 @@
+# General aliases
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias shutdown='sudo shutdown -h now'
+alias reboot='sudo reboot'
+
 # Pandora launchers
 alias robot-launch='roslaunch pandora_launchers integration_test.launch'
 alias stabilizer='roslaunch pandora_launchers stabilizer.launch'

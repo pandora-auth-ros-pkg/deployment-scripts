@@ -97,10 +97,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# shutdown and reboot aliases
-alias shutdown='sudo shutdown -P now'
-alias reboot='sudo reboot'
-
 # Git highlighting script
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1

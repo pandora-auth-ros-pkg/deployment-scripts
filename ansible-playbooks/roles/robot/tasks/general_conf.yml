@@ -8,6 +8,18 @@
     src=pandora-gears.rules
     dest=/etc/udev/rules.d
 
+- name: Copying grub config
+  sudo: yes
+  copy:
+    src=grub
+    dest=/etc/default/grub
+
+- name: Copying blacklist config
+  sudo: yes
+  copy:
+    src=blacklist.conf
+    dest=/etc/modprobe.d/blacklist.conf
+
 - name: Adding play_sound script
   sudo: yes
   copy:
@@ -20,16 +32,16 @@
 - name: Copying the .bashrc
   sudo: no
   copy:
-    src=.bashrc
-    dest=/home/pandora
+    src=bashrc
+    dest=/home/pandora/.bashrc
     owner=pandora
     group=pandora
 
 - name: Copying the .bash_aliases
   sudo: no
   copy:
-    src=.bash_aliases
-    dest=/home/pandora
+    src=bash_aliases
+    dest=/home/pandora/.bash_aliases
     owner=pandora
     group=pandora
 
