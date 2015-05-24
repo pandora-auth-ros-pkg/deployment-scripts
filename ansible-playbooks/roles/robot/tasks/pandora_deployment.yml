@@ -18,12 +18,6 @@
     recurse=yes
     state=directory
 
-#- name: Initialize pandora workspace
-  #raw: source {{ ros_bash }} && cd {{ pandora_source }} && catkin_init_workspace
-
-#- name: Initialize catkin workspace
-  #raw: source {{ ros_bash }} && cd {{ catkin_source }} && catkin_init_workspace
-
 - name: Create temp directory for the private key
   file: path={{ pandora_home_ssh }} state=directory
   tags: code
@@ -52,21 +46,25 @@
   with_items: "{{ navigation_repo }}"
 
 - name: Delete private key
-  file: path="{{ pandora_home_ssh }}/private_key" state=absent
+  tags: code
+  file: path="{{ pandora_home_ssh }}" state=absent
 
 - name: ROSdep init
   sudo: yes
-  raw: rosdep init
+  raw: rosdep init 2>/dev/null
+  ignore_errors: yes
 
 - name: ROSdep update
   sudo: yes
   raw: rosdep update
 
-- name: ROSdep install
-  raw: cd {{ pandora_workspace }} && sudo rosdep install --from-paths src --ignore-src --rosdistro hydro -y
+- name: ROSdep install for pandora
+  sudo: yes
+  script: rosdep_install.sh {{ pandora_workspace }}
 
-- name: ROSdep install
-  raw: cd {{ catkin_workspace }} && sudo rosdep install --from-paths src --ignore-src --rosdistro hydro -y
+- name: ROSdep install for catkin
+  sudo: yes
+  script: rosdep_install.sh {{ catkin_workspace }}
 
 - name: Making pandora the owner
   sudo: yes
