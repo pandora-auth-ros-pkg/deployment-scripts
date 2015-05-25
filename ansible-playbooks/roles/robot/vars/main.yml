@@ -22,6 +22,7 @@ navigation_repo:
 pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_data_fusion.git", version: "hydro-devel", name: "pandora_data_fusion"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_navigation.git", version: "hydro-devel", name: "pandora_navigation"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_exploration.git", version: "hydro-devel", name: "pandora_exploration"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_vision.git", version: "hydro-devel", name: "pandora_vision"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_common.git", version: "hydro-devel", name: "pandora_common"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_slam.git", version: "hydro-devel", name: "pandora_slam"}
