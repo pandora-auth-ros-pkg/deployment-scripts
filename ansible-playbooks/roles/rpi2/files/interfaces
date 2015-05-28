@@ -1,0 +1,20 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# -- Configure loopback interface
+audo lo
+iface lo inet loopback
+
+# -- Ethernet static address configuration
+#auto eth0
+#iface eth0 inet static
+  #address   10.0.1.2
+  #netmask   255.255.255.0
+  #gateway   10.0.1.1
+# ----------------------------------------
+
+# -- Ethernet configuration on a DHCP server 
+allow-hotplug eth0
+iface eth0 inet dhcp
+# ------------------------------------------
+

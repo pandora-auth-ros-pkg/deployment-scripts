@@ -1,0 +1,1 @@
+SUBSYSTEMS=="spidev", GROUP="spi", MODE="0666"
