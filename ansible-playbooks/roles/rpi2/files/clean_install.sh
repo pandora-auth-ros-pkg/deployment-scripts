@@ -18,7 +18,7 @@ done
 echo -e "\033[0m"
 
 #=============================================================================
-PYMOD=( 'RPi.GPIO' )
+PYMOD=( 'RPi.GPIO' 'picamera' )
 
 NUM_PYMOD=${#PYMOD[@]}
 echo -e "\033[1;32mInstalling python packages\033[0m"
