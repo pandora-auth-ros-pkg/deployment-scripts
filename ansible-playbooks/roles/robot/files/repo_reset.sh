@@ -41,7 +41,7 @@ repo_reset ()
     fi
     
     echo -e "${WHITE}Fetching...${RESET}"
-    #git fetch --quiet
+    git fetch --quiet
     
     # Find if any of the default branches exist
     local default_branch
@@ -61,20 +61,20 @@ repo_reset ()
     git diff-index --quiet HEAD
     local diff=$?
     if [ $diff == 1 ]; then
-      #git stash --quiet
+      git stash --quiet
       echo -e "${RED}Stashed changes${RESET}"
     fi
     
     local curr_branch=`git rev-parse --abbrev-ref HEAD`
     if [ $curr_branch != $default_branch ]; then
-      #git checkout ${default_branch} --quiet
+      git checkout ${default_branch} --quiet
       echo -e "${GREEN}Checked out to ${default_branch}${RESET}"
     fi
 
     local local_sha=`git rev-parse ${default_branch}`
     local remote_sha=`git rev-parse ${REMOTE}/${default_branch}`
     if [ $local_sha != $remote_sha ]; then
-      #git reset --hard ${REMOTE}/${default_branch} --quiet
+      git reset --hard ${REMOTE}/${default_branch} --quiet
       echo -e "${RED}Reset to ${REMOTE}/${default_branch}${RESET}"
     fi
     
@@ -82,9 +82,9 @@ repo_reset ()
   done
 
   cd ../..
-  #rm -rf devel/ build/
+  rm -rf devel/ build/
   echo -e "${WHITE}Deleted devel and build directories\n${RESET}"
 
   sleep 2
-  #catkin_make
+  catkin_make
 }; repo_reset
