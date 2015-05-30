@@ -1,0 +1,7 @@
+# List of devices to be checked in /dev/ based on symlinks
+[motor] epos2 linear dynamixel
+[uC] arm
+[imu] trax compass
+[camera] xtion left_cam right_cam pixy
+[laser] hokuyo
+[other] cpu
