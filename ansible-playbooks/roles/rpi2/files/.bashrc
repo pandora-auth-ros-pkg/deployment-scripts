@@ -201,3 +201,7 @@ PS1='${debian_chroot:+($debian_chroot)}'"${BBlue}[ \u ]${BIRed} @ ${BPurple}[ \h
 source /opt/ros/indigo/setup.bash
 source ~/pandora_ws/devel/setup.bash --extend
 
+
+## --- RPI Camera Module 
+export PATH=$PATH:/opt/vc/bin:/opt/vc/sbin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/vc/lib
