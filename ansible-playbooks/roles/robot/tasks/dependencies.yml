@@ -1,6 +1,16 @@
 ---
 
 # Installing ROS and other dependencies
+- name: Install python dependencies from pip
+  sudo: yes
+  pip:
+      name={{ item }}
+      state=latest
+  with_items:
+      - pymitter
+      - colorlog
+      - nose
+      - mock
 
 - name: Add ROS into sources.list
   sudo: yes
