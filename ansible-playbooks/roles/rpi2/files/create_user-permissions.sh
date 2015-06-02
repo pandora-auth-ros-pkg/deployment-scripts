@@ -8,4 +8,4 @@ sudo adduser pandora
 sudo adduser pandora dialout # Serial devices (tty)
 sudo adduser pandora sudo 
 sudo adduser pandora video  # For video devices
-
+sudo adduser pandora spi
