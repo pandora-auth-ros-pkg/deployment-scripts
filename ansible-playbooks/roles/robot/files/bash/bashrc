@@ -1,0 +1,28 @@
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# Source files
+[ -f /etc/bash_completion ] && ! shopt -oq posix && . /etc/bash_completion
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+[ -f ~/.bash_functions ] && . ~/.bash_functions
+[ -f /opt/ros/hydro/setup.bash ] && . /opt/ros/hydro/setup.bash
+[ -f ~/pandora_ws/devel/setup.bash ] && . ~/pandora_ws/devel/setup.bash --extend
+[ -f ~/catkin_ws/devel/setup.bash ] && . ~/catkin_ws/devel/setup.bash --extend
+
+# General configs
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend
+shopt -s checkwinsize
+
+# Export variables
+export LC_ALL="en_US.UTF-8"
+export ROS_MASTER_URI=http://192.168.0.106:11311
+export ROS_IP=192.168.0.106
+
+# Enable core dumps
+ulimit -c unlimited
+
+# Execute functions
+set_prompt

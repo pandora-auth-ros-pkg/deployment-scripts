@@ -1,0 +1,2 @@
+# Logout script
+[ -x /usr/local/bin/logout.sh ] && /usr/local/bin/logout.sh
