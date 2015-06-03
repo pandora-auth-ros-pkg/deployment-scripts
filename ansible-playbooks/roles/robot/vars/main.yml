@@ -45,3 +45,6 @@ ros_deps:
   - ros-hydro-ros
 
 host_ip: "192.168.0.106"
+
+admin_username: "megatron"
+admin_password: "$6$y/LRB78LSOve7$t0u0YOyPsrWDKlEtnW9PNqwCYjrtyNXaz5/qGPA.tM/tN8zXtuWYH807qsEFsOSPEXBrAwC51QCXdHJ757WP10"

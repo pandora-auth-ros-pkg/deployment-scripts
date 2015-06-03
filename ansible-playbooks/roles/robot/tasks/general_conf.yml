@@ -20,59 +20,175 @@
     src=blacklist.conf
     dest=/etc/modprobe.d/blacklist.conf
 
-- name: Adding play_sound script
+- name: Adding network_up_sound script
   sudo: yes
   copy:
-    src=play_sound
+    src=scripts/network_up_sound
     dest=/etc/network/if-up.d
     group=root
     owner=root
     mode="u=rwx"
 
-- name: Copying the .bashrc
-  sudo: no
-  copy:
-    src=bashrc
-    dest=/home/pandora/.bashrc
-    owner=pandora
-    group=pandora
-
-- name: Copying the .bash_aliases
-  sudo: no
-  copy:
-    src=bash_aliases
-    dest=/home/pandora/.bash_aliases
-    owner=pandora
-    group=pandora
-
-- name: Copying the repostatus
+- name: Copying sshd config
   sudo: yes
   copy:
-    src=repostatus.sh
-    dest=/usr/local/bin
-    owner=pandora
-    group=pandora
+    src=sshd_config
+    dest=/etc/ssh/sshd_config
+    owner=root
+    group=root
     mode="u=rwx"
 
-- name: Copying the device_check
+- name: Copying ssh motd scripts
   sudo: yes
   copy:
-    src=device_check.sh
-    dest=/usr/local/bin
-    owner=pandora
-    group=pandora
+    src=motd/
+    dest=/etc/update-motd.d
+    owner=root
+    group=root
     mode="u=rwx"
 
-- name: Copying the Findlibusb-1.0
+- name: Copying Findlibusb-1.0 script
   sudo: yes
   copy:
     src=Findlibusb-1.0.cmake
     dest=/usr/share/cmake-2.8/Modules
     owner=pandora
     group=pandora
+    
+# Bash related files
 
-# Giving access to groups
+- name: Copying .bashrc
+  sudo: no
+  copy:
+    src=bash/bashrc
+    dest=/home/pandora/.bashrc
+    owner=pandora
+    group=pandora
+  tags: bash
+
+- name: Copying .bash_login
+  sudo: no
+  copy:
+    src=bash/bash_login
+    dest=/home/pandora/.bash_login
+    owner=pandora
+    group=pandora
+  tags: bash
+
+- name: Copying login script
+  sudo: yes
+  copy:
+    src=bash/login.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+  tags: bash
+
+- name: Copying .bash_logout
+  sudo: no
+  copy:
+    src=bash/bash_logout
+    dest=/home/pandora/.bash_logout
+    owner=pandora
+    group=pandora
+  tags: bash
+
+- name: Copying logout script
+  sudo: yes
+  copy:
+    src=bash/logout.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+  tags: bash
+
+- name: Copying .bash_aliases
+  sudo: no
+  copy:
+    src=bash/bash_aliases
+    dest=/home/pandora/.bash_aliases
+    owner=pandora
+    group=pandora
+  tags: bash
+
+- name: Copying .bash_functions
+  sudo: no
+  copy:
+    src=bash/bash_functions
+    dest=/home/pandora/.bash_functions
+    owner=pandora
+    group=pandora
+  tags: bash
+    
+# Scripts
+
+- name: Copying git_ps1 script
+  sudo: yes
+  copy:
+    src=scripts/git_ps1
+    dest=/etc/bash_completion.d/git_ps1
+    owner=root
+    group=root
+    mode="u=rwx"
+  tags: scripts
+
+- name: Copying repo_status script
+  sudo: yes
+  copy:
+    src=scripts/repo_status.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+  tags: scripts
+
+- name: Copying repo_reset script
+  sudo: yes
+  copy:
+    src=scripts/repo_reset.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+  tags: scripts
+
+- name: Copying device_check script
+  sudo: yes
+  copy:
+    src=scripts/device_check.sh
+    dest=/usr/local/bin
+    owner=pandora
+    group=pandora
+    mode="u=rwx"
+  tags: scripts
+
+- name: Copying .device_list
+  sudo: no
+  copy:
+    src=device_list
+    dest=/home/pandora/.device_list
+    owner=pandora
+    group=pandora
+  tags: scripts
+
+# Changing user permissions
 
 - name: Add pandora to dialout and video group
   sudo: yes
-  user: name=pandora groups=dialout,video append=yes
+  user: name=pandora
+        groups=dialout,video
+        append=yes
+
+- name: Add admin user
+  sudo: yes
+  user: name={{ admin_username }}
+        password={{ admin_password }}
+        shell=/bin/bash
+        groups=sudo
+        append=yes
+
+- name: Changing sudoers file safely
+  sudo: yes
+  script: scripts/safe_sudoers.sh
