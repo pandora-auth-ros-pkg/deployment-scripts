@@ -4,7 +4,11 @@
 
 - name: Enalbe IP forwarding
   sudo: yes
-  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+  sysctl: name="net.ipv4.ip_forward"
+          value=1
+          sysctl_set=yes
+          state=present
+          reload=yes
 
 - name: Enable NAT in the kernel for all interfaces
   sudo: yes
@@ -20,7 +24,9 @@
 
 - name: Overwriting /etc/network/interfaces with the permanent changes
   sudo: yes
-  copy: src=interfaces dest=/etc/network/ force=yes
+  copy: src=interfaces
+        dest=/etc/network/
+        force=yes
 
 - name: Create directory for the raspberry pi scripts
   sudo: yes
@@ -34,7 +40,7 @@
 - name: Copy pc_ros_network_config
   sudo: yes
   copy:
-    src=pc_ros_network_config.sh
+    src=scripts/pc_ros_network_config.sh
     dest=/home/pandora/rpi-scripts/
     owner=pandora
     group=pandora
@@ -43,7 +49,7 @@
 - name: Copy rpi_ros_network_config
   sudo: yes
   copy:
-    src=rpi_ros_network_config.sh
+    src=scripts/rpi_ros_network_config.sh
     dest=/home/pandora/rpi-scripts/
     owner=pandora
     group=pandora

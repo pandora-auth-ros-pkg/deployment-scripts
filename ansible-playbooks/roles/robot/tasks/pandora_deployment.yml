@@ -19,15 +19,19 @@
     state=directory
 
 - name: Create temp directory for the private key
-  file: path={{ pandora_home_ssh }} state=directory
+  file: path={{ pandora_home_ssh }}
+        state=directory
   tags: code
 
 - name: Copy private key
-  copy: src=github_key dest={{ pandora_home_ssh }}/private_key owner=pandora group=pandora mode=600
+  copy: src=github_key
+        dest={{ pandora_home_ssh }}/private_key
+        owner=pandora
+        group=pandora
+        mode=600
   tags: code
 
 - name: Download PANDORA's source code
-  tags: code
   git:
     repo={{ item.url }}
     dest={{ pandora_source }}/{{ item.name }}
@@ -35,19 +39,21 @@
     accept_hostkey=yes
     key_file="{{ pandora_home_ssh }}/private_key"
   with_items: "{{ pandora_repos }}"
+  tags: code
 
 - name: Download navigation repo
-  tags: code
   git:
     repo={{ item.url }}
     dest={{ catkin_source }}/{{ item.name }}
     version={{ item.version }}
     accept_hostkey=yes
   with_items: "{{ navigation_repo }}"
+  tags: code
 
 - name: Delete private key
+  file: path="{{ pandora_home_ssh }}"
+        state=absent
   tags: code
-  file: path="{{ pandora_home_ssh }}" state=absent
 
 - name: ROSdep init
   sudo: yes
@@ -60,11 +66,23 @@
 
 - name: ROSdep install for pandora
   sudo: yes
-  script: rosdep_install.sh {{ pandora_workspace }}
+  script: scripts/rosdep_install.sh {{ pandora_workspace }}
 
 - name: ROSdep install for catkin
   sudo: yes
-  script: rosdep_install.sh {{ catkin_workspace }}
+  script: scripts/rosdep_install.sh {{ catkin_workspace }}
+
+- name: Reset and build pandora code
+  sudo: yes
+  script: scripts/repo_reset.sh {{ pandora_source }} origin hydro-devel master
+
+- name: Create rosbags directory
+  file:
+    path="/home/pandora/rosbags"
+    owner=pandora
+    group=pandora
+    recurse=yes
+    state=directory
 
 - name: Making pandora the owner
   sudo: yes
@@ -74,3 +92,13 @@
     group=pandora
     recurse=yes
     state=directory
+  
+# General configurations
+
+- name: Git config name
+  sudo: no
+  raw: git config --global user.name "pandora"
+
+- name: Git config email
+  sudo: no
+  raw: git config --global user.email "pandora@ee.auth.gr"
