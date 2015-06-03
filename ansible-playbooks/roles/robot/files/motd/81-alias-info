@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo
+echo "  \033[1;100mUseful bash aliases\033[0m"
+echo "  \033[4;37mGeneral launchers:\033[0m\033[1;37m integration-launch, stabilizer, teleop\033[0m"
+echo "  \033[4;37mHW launchers:\033[0m\033[1;37m motors, linear, pixy, dynamixel, imu, arm\033[0m"
+echo "  \033[4;37mMonitor:\033[0m\033[1;37m cpu-temp, batteries\033[0m"
+echo "  \033[4;37mScripts:\033[0m\033[1;37m repo_status, repo_reset, device_check\033[0m"
