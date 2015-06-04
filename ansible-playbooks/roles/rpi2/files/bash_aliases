@@ -1,0 +1,8 @@
+## -- System related -- ##
+alias temp='/opt/vc/bin/vcgencmd measure_temp'
+
+## -- Git related -- ##
+alias gits='git status'
+alias gita='git add -A .'
+alias gitf='git fetch'
+
