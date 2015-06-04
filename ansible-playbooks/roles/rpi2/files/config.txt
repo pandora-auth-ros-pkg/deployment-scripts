@@ -59,10 +59,11 @@ gpu_mem=128
 ----------------------------------------------------------
 
 # -- Overclocking --
-#arm_freq=800
-#arm_freq_min=300
-#core_freq=300
-#core_freq_min=75
-#sdram_freq=400
-#over_voltage=0
+arm_freq=900
+arm_freq_min=400
+sdram_freq=500
+sdram_freqp_min=250
+#core_freq=300 # Do not change core frequency!
+#core_freq_min=75 # Do not change core frequency!
+over_voltage=2
 # ------------------
