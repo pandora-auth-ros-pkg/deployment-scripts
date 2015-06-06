@@ -31,6 +31,14 @@
         mode=600
   tags: code
 
+- name: Initialize wstool in pandora_ws
+  raw: wstool init {{ pandora_source }}
+  ignore_errors: yes
+
+- name: Initialize wstool in catkin_ws
+  raw: wstool init {{ catkin_source }}
+  ignore_errors: yes
+
 - name: Download PANDORA's source code
   git:
     repo={{ item.url }}
@@ -41,6 +49,9 @@
   with_items: "{{ pandora_repos }}"
   tags: code
 
+- name: Create rosinstall file with pandoradep
+  raw: pandoradep scan {{ pandora_source }} > {{ pandora_source }}/pandora.rosinstall
+
 - name: Download navigation repo
   git:
     repo={{ item.url }}
@@ -49,6 +60,9 @@
     accept_hostkey=yes
   with_items: "{{ navigation_repo }}"
   tags: code
+
+- name: Create rosinstall file with pandoradep
+  raw: pandoradep scan {{ catkin_source }} > {{ catkin_source }}/pandora.rosinstall
 
 - name: Delete private key
   file: path="{{ pandora_home_ssh }}"
@@ -63,10 +77,12 @@
 - name: ROSdep update
   sudo: yes
   raw: rosdep update
+  ignore_errors: yes
 
 - name: ROSdep install for pandora
   sudo: yes
   script: scripts/rosdep_install.sh {{ pandora_workspace }}
+  ignore_errors: yes
 
 - name: ROSdep install for catkin
   sudo: yes
@@ -92,7 +108,7 @@
     group=pandora
     recurse=yes
     state=directory
-  
+
 # General configurations
 
 - name: Git config name
