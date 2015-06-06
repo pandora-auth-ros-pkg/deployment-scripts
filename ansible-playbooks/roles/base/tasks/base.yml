@@ -41,11 +41,10 @@
       - g++
       - autoconf
       - python2.7-dev
-- name: 'Enusre basic python packages are installed'
+- name: 'Ensure basic python packages are installed'
   sudo: yes
-  pip:
+  easy_install:
       name={{ item }}
-      state=latest
   with_items:
       - virtualenv
       - pyyaml
