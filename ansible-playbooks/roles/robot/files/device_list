@@ -2,6 +2,6 @@
 [motor] epos2 linear dynamixel
 [uC] arm
 [imu] trax compass
-[camera] xtion pixy left_cam right_cam
+[camera] xtion pixy right_camera left_camera
 [laser] hokuyo
 [other] cpu

@@ -39,7 +39,7 @@ alias cpu-temp='watch sensors'
 alias batteries='rostopic echo /sensors/battery'
 
 # Scripts
-alias repo_status='repo_status.sh ~/pandora_ws/src hydro-devel master'
+alias repo_status='repo_status.sh ~/pandora_ws/src hydro-devel master ; echo ; repo_status.sh ~/catkin_ws/src bobolia_coverage'
 alias repo_reset='repo_reset.sh ~/pandora_ws/src origin hydro-devel ; echo ; repo_reset.sh ~/catkin_ws/src origin bobolia_coverage'
 alias device_check='device_check.sh ~/.device_list'
 
