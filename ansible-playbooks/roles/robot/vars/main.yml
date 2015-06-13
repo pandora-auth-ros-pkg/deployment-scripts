@@ -33,7 +33,6 @@ pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_diagnostics.git", version: "hydro-devel", name: "pandora_diagnostics"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_launchers.git", version: "hydro-devel", name: "pandora_launchers"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_visualization.git", version: "hydro-devel", name: "pandora_visualization"}
-  - {url: "git@github.com:pandora-auth-ros-pkg/pandora_rqt_gui.git", version: "hydro-devel", name: "pandora_rqt_gui"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_audio.git", version: "hydro-devel", name: "pandora_audio"}
   - {url: "git@github.com:pandora-auth-ros-pkg/open_tld.git", version: "hydro-devel", name: "open_tld"}
 
