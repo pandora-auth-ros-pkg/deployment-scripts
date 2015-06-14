@@ -31,14 +31,10 @@
         mode=600
   tags: code
 
-- name: Initialize wstool in pandora_ws
-  raw: wstool init {{ pandora_source }}
+- name: Initialize and run wstool in pandora_ws
+  raw: cd {{ pandora_source }} ; wstool init . && wstool merge {{ pandora_robot_rosinstall }}
   ignore_errors: yes
-
-- name: Initialize wstool in catkin_ws
-  raw: wstool init {{ catkin_source }}
-  ignore_errors: yes
-
+  
 - name: Download PANDORA's source code
   git:
     repo={{ item.url }}
@@ -48,10 +44,7 @@
     key_file="{{ pandora_home_ssh }}/private_key"
   with_items: "{{ pandora_repos }}"
   tags: code
-
-- name: Create rosinstall file with pandoradep
-  raw: pandoradep scan {{ pandora_source }} > {{ pandora_source }}/pandora.rosinstall
-
+  
 - name: Download navigation repo
   git:
     repo={{ item.url }}
@@ -60,15 +53,12 @@
     accept_hostkey=yes
   with_items: "{{ navigation_repo }}"
   tags: code
-
-- name: Create rosinstall file with pandoradep
-  raw: pandoradep scan {{ catkin_source }} > {{ catkin_source }}/pandora.rosinstall
-
+  
 - name: Delete private key
   file: path="{{ pandora_home_ssh }}"
         state=absent
   tags: code
-
+  
 - name: ROSdep init
   sudo: yes
   raw: rosdep init 2>/dev/null
@@ -79,17 +69,17 @@
   raw: rosdep update
   ignore_errors: yes
 
-- name: ROSdep install for pandora
+- name: ROSdep for pandora_ws
   sudo: yes
-  script: scripts/rosdep_install.sh {{ pandora_workspace }}
+  raw: cd {{ pandora_workspace }} ; apt-get update ; rosdep install --from-paths src --ignore-src --rosdistro hydro -y
   ignore_errors: yes
 
-- name: ROSdep install for catkin
+- name: ROSdep for catkin_ws
   sudo: yes
-  script: scripts/rosdep_install.sh {{ catkin_workspace }}
+  raw: cd {{ catkin_workspace }} ; apt-get update ; rosdep install --from-paths src --ignore-src --rosdistro hydro -y
   ignore_errors: yes
 
-- name: Making pandora the owner
+- name: Making pandora the owner of pandora_ws
   sudo: yes
   file:
     path={{ pandora_workspace }}
@@ -98,9 +88,24 @@
     recurse=yes
     state=directory
 
-- name: Reset and build pandora code
+- name: Making pandora the owner of catkin_ws
   sudo: yes
-  script: scripts/repo_reset.sh {{ pandora_source }} origin hydro-devel master
+  file:
+    path={{ catkin_workspace }}
+    owner=pandora
+    group=pandora
+    recurse=yes
+    state=directory
+
+- name: Build pandora_ws
+  sudo: no
+  raw: cd {{ pandora_workspace }} ; . /opt/ros/hydro/setup.bash ; catkin_make -DDOWNLOAD_DATA=1 
+  ignore_errors: yes
+
+- name: Build catkin_ws
+  sudo: no
+  raw: cd {{ catkin_workspace }} ; . /opt/ros/hydro/setup.bash ; catkin_make -DDOWNLOAD_DATA=1 
+  ignore_errors: yes
 
 - name: Create rosbags directory
   file:
@@ -109,6 +114,7 @@
     group=pandora
     recurse=yes
     state=directory
+    
 # General configurations
 
 - name: Git config name

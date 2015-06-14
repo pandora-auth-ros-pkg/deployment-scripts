@@ -16,8 +16,7 @@ ros_bash: "/opt/ros/hydro/setup.bash"
 external_rasp_ip: "10.10.1.1"
 internal_rasp_ip: "10.1.1.2"
 
-navigation_repo:
-  - {url: "https://github.com/czalidis/navigation", version: "bobolia_coverage", name: "navigation"}
+pandora_robot_rosinstall: "https://raw.github.com/pandora-auth-ros-pkg/install/hydro-devel/pandora_robot.rosinstall"
 
 pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_data_fusion.git", version: "hydro-devel", name: "pandora_data_fusion"}
@@ -35,6 +34,9 @@ pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_visualization.git", version: "hydro-devel", name: "pandora_visualization"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_audio.git", version: "hydro-devel", name: "pandora_audio"}
   - {url: "git@github.com:pandora-auth-ros-pkg/open_tld.git", version: "hydro-devel", name: "open_tld"}
+
+navigation_repo:
+  - {url: "https://github.com/czalidis/navigation", version: "bobolia_coverage", name: "navigation"}
 
 ros_deps:
   - python-catkin-pkg
