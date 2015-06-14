@@ -91,5 +91,5 @@ repo_reset ()
   echo -e "${WHITE}Deleted devel and build directories\n${RESET}"
 
   sleep 2
-  catkin_make
+  catkin_make -DDOWNLOAD_DATA=1 
 }; repo_reset
