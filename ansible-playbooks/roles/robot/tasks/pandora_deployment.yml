@@ -87,6 +87,16 @@
 - name: ROSdep install for catkin
   sudo: yes
   script: scripts/rosdep_install.sh {{ catkin_workspace }}
+  ignore_errors: yes
+
+- name: Making pandora the owner
+  sudo: yes
+  file:
+    path={{ pandora_workspace }}
+    owner=pandora
+    group=pandora
+    recurse=yes
+    state=directory
 
 - name: Reset and build pandora code
   sudo: yes
@@ -99,16 +109,6 @@
     group=pandora
     recurse=yes
     state=directory
-
-- name: Making pandora the owner
-  sudo: yes
-  file:
-    path={{ pandora_workspace }}
-    owner=pandora
-    group=pandora
-    recurse=yes
-    state=directory
-
 # General configurations
 
 - name: Git config name
