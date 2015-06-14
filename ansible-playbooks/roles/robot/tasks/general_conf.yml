@@ -8,6 +8,12 @@
     src=pandora-gears.rules
     dest=/etc/udev/rules.d
 
+#- name: Copying udev rules
+#  sudo: yes
+#  copy:
+#    src=pandora-rc.rules
+#    dest=/etc/udev/rules.d
+
 - name: Copying grub config
   sudo: yes
   copy:
@@ -60,11 +66,20 @@
 - name: Copying .bashrc
   sudo: no
   copy:
-    src=bash/bashrc
+    src=bash/bashrc-gears
     dest=/home/pandora/.bashrc
     owner=pandora
     group=pandora
   tags: bash
+
+#- name: Copying .bashrc
+#  sudo: no
+#  copy:
+#    src=bash/bashrc-rc
+#    dest=/home/pandora/.bashrc
+#    owner=pandora
+#    group=pandora
+#  tags: bash
 
 - name: Copying .bash_login
   sudo: no
