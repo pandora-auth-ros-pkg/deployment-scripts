@@ -20,6 +20,7 @@ shopt -s checkwinsize
 export LC_ALL="en_US.UTF-8"
 export ROS_MASTER_URI=http://192.168.0.106:11311
 export ROS_IP=192.168.0.106
+export ROSLAUNCH_SSH_UNKNOWN=1
 
 # Enable core dumps
 ulimit -c unlimited
