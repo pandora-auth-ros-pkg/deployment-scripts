@@ -1,0 +1,6 @@
+Host rpi2
+  HostName  rpi2
+  User pandora
+  IdentityFile ~/.ssh/id_rsa
+
+
