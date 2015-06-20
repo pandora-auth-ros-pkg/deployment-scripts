@@ -1,4 +1,14 @@
 ---
+    
+# General configurations
+
+- name: Git config name
+  sudo: no
+  raw: git config --global user.name "pandora"
+
+- name: Git config email
+  sudo: no
+  raw: git config --global user.email "pandora@ee.auth.gr"
 
 # Deploying PANDORA's code
 
@@ -10,18 +20,9 @@
     recurse=yes
     state=directory
 
-- name: Create catkin workspace
-  file:
-    path="{{ catkin_source  }}"
-    owner=pandora
-    group=pandora
-    recurse=yes
-    state=directory
-
 - name: Create temp directory for the private key
   file: path={{ pandora_home_ssh }}
         state=directory
-  tags: code
 
 - name: Copy private key
   copy: src=github_key
@@ -29,10 +30,9 @@
         owner=pandora
         group=pandora
         mode=600
-  tags: code
 
 - name: Initialize and run wstool in pandora_ws
-  raw: cd {{ pandora_source }} ; wstool init . && wstool merge {{ pandora_robot_rosinstall }}
+  raw: cd {{ pandora_source }} ; wstool init . &>/dev/null && wstool merge {{ pandora_robot_rosinstall }}
   ignore_errors: yes
   
 - name: Download PANDORA's source code
@@ -43,25 +43,14 @@
     accept_hostkey=yes
     key_file="{{ pandora_home_ssh }}/private_key"
   with_items: "{{ pandora_repos }}"
-  tags: code
-  
-- name: Download navigation repo
-  git:
-    repo={{ item.url }}
-    dest={{ catkin_source }}/{{ item.name }}
-    version={{ item.version }}
-    accept_hostkey=yes
-  with_items: "{{ navigation_repo }}"
-  tags: code
   
 - name: Delete private key
   file: path="{{ pandora_home_ssh }}"
         state=absent
-  tags: code
   
 - name: ROSdep init
   sudo: yes
-  raw: rosdep init 2>/dev/null
+  raw: rosdep init &>/dev/null
   ignore_errors: yes
 
 - name: ROSdep update
@@ -74,24 +63,10 @@
   raw: cd {{ pandora_workspace }} ; apt-get update ; rosdep install --from-paths src --ignore-src --rosdistro hydro -y
   ignore_errors: yes
 
-- name: ROSdep for catkin_ws
-  sudo: yes
-  raw: cd {{ catkin_workspace }} ; apt-get update ; rosdep install --from-paths src --ignore-src --rosdistro hydro -y
-  ignore_errors: yes
-
 - name: Making pandora the owner of pandora_ws
   sudo: yes
   file:
     path={{ pandora_workspace }}
-    owner=pandora
-    group=pandora
-    recurse=yes
-    state=directory
-
-- name: Making pandora the owner of catkin_ws
-  sudo: yes
-  file:
-    path={{ catkin_workspace }}
     owner=pandora
     group=pandora
     recurse=yes
@@ -102,11 +77,6 @@
   raw: cd {{ pandora_workspace }} ; . /opt/ros/hydro/setup.bash ; catkin_make -DDOWNLOAD_DATA=1 
   ignore_errors: yes
 
-- name: Build catkin_ws
-  sudo: no
-  raw: cd {{ catkin_workspace }} ; . /opt/ros/hydro/setup.bash ; catkin_make -DDOWNLOAD_DATA=1 
-  ignore_errors: yes
-
 - name: Create rosbags directory
   file:
     path="/home/pandora/rosbags"
@@ -114,13 +84,3 @@
     group=pandora
     recurse=yes
     state=directory
-    
-# General configurations
-
-- name: Git config name
-  sudo: no
-  raw: git config --global user.name "pandora"
-
-- name: Git config email
-  sudo: no
-  raw: git config --global user.email "pandora@ee.auth.gr"

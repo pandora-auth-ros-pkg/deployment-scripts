@@ -6,9 +6,6 @@ ros_key_url: "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key"
 pandora_workspace: "/home/pandora/pandora_ws"
 pandora_source: "/home/pandora/pandora_ws/src"
 
-catkin_workspace: "/home/pandora/catkin_ws"
-catkin_source: "/home/pandora/catkin_ws/src"
-
 pandora_home_ssh: "/home/pandora/ssh_ansible"
 
 ros_bash: "/opt/ros/hydro/setup.bash"
@@ -34,9 +31,8 @@ pandora_repos:
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_visualization.git", version: "hydro-devel", name: "pandora_visualization"}
   - {url: "git@github.com:pandora-auth-ros-pkg/pandora_audio.git", version: "hydro-devel", name: "pandora_audio"}
   - {url: "git@github.com:pandora-auth-ros-pkg/open_tld.git", version: "hydro-devel", name: "open_tld"}
-
-navigation_repo:
-  - {url: "https://github.com/czalidis/navigation", version: "bobolia_coverage", name: "navigation"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/crsm-slam-ros-pkg.git", version: "pandora_branch", name: "crsm-slam-ros-pkg"}
+  - {url: "git@github.com:pandora-auth-ros-pkg/navigation.git", version: "bobolia_coverage", name: "navigation"}
 
 ros_deps:
   - python-catkin-pkg

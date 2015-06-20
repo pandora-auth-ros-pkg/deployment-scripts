@@ -91,5 +91,9 @@ repo_reset ()
   echo -e "${WHITE}Deleted devel and build directories\n${RESET}"
 
   sleep 2
+  
+#  echo -e "${WHITE}Installing dependencies...\n${RESET}"
+#  rosdep update && sudo rosdep install --from-paths src --ignore-src --rosdistro hydro -y
+  
   catkin_make -DDOWNLOAD_DATA=1
 }; repo_reset
