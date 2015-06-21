@@ -33,10 +33,9 @@ def shell(command):
     cmd = command.split(" ")
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
-    if stderr != None:
+    if stderr != None and stderr != '\n' and stderr != ' ':
         print bcolors.FAIL + "Error on command execution: [%s]" % command
         print bcolors.UNDERLINE + "Error ---> %s" % stderr +  bcolors.ENDC
-        return 0
     return stdout
 
 
@@ -181,7 +180,7 @@ def main():
         print bcolors.FAIL + "Machine name not specified!!" + bcolors.ENDC
         sys.exit(1)
 
-    machine = args.machine
+    machine = args.machine[0]
     #machine = "rpi2"
     run(machine)
 
