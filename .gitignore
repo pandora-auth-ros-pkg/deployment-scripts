@@ -58,3 +58,6 @@ target/
 
 github_key
 github_key.pub
+
+# Vim
+*.ropeproject*
