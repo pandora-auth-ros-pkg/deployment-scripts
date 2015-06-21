@@ -152,6 +152,8 @@ def republish(in_topic, out_topic):
 
 def run(machine):
     nodes = active_nodes(machine)
+    if nodes == None:
+        sys.exit(1)
     for node in nodes:
         publishers  = active_publishers(node)
         for pub in publishers:
