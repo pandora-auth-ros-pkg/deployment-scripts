@@ -139,7 +139,7 @@ def active_nodes(machine):
 #  @param in_topic Topic to transport (e.g Remote machine topic)
 #  @param out_topic Transported topic (e.g Local machine topic)
 def republish(in_topic, out_topic):
-    cmd = "rosrun image_transport republish raw in:=%s out:=%s" \
+    cmd = "rosrun image_transport republish raw in:=%s raw out:=%s" \
         % (in_topic, out_topic)
     #print cmd
     print bcolors.HEADER + "Republishing topic " + bcolors.UNDERLINE + \
