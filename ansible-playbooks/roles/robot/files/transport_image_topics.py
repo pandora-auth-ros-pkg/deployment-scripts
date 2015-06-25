@@ -33,9 +33,10 @@ def shell(command):
     cmd = command.split(" ")
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
-    if stderr != None and stderr != '\n' and stderr != ' ':
+    if stderr != None and stderr != '':
         print bcolors.FAIL + "Error on command execution: [%s]" % command
         print bcolors.UNDERLINE + "Error ---> %s" % stderr +  bcolors.ENDC
+        return 0
     return stdout
 
 
@@ -122,16 +123,17 @@ def is_image_topic(topic):
 def active_nodes(machine):
     cmd = "rosnode machine %s" % machine
     ret = shell(cmd)
-    if ret == 0:
+    if ret == 0 or ret == '\n':
         print bcolors.FAIL + "No active nodes on machine [%s]" % machine
         sys.exit(1)
+
     nodes = ret.split('\n')
     nodes.remove('')
     print bcolors.OKBLUE + bcolors.UNDERLINE + "Active nodes on machine [%s]: " \
         % machine + bcolors.ENDC
     for node in nodes:
         print node
-        return nodes
+    return nodes
 
 
 ## @brief Republish a topic using image_transport
