@@ -211,3 +211,6 @@ export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7
 
 ## Add libraries installed under /usr/local prefix (/usr/local/lib)
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+## Expose ROS network setup 
+source ~/.ros_net_setup.sh
