@@ -26,6 +26,10 @@
     src=blacklist.conf
     dest=/etc/modprobe.d/blacklist.conf
 
+-name: Adding hokuyo_20 hostname in /etc/hosts
+ sudo: yes
+ raw: echo "192.168.2.10       hokuyo_20" >> /etc/hosts
+
 - name: Adding network_up_sound script
   sudo: yes
   copy:
