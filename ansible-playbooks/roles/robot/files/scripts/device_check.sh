@@ -3,9 +3,27 @@
 # Store command line arguments
 DEVICE_LIST=$1
 
-CONNECTED_DEVICES=`ls /dev``arp | awk '{print $1}' | xargs`
+CONNECTED_DEVICES=`ls /dev`
 HEADER1="Category"
 HEADER2="Devices"
+
+# Detect ip devices
+detect_ip_devices()
+{
+  IP_DEVICES=$(arp | awk '{print $1}')
+  VALID_IP_DEVICES=""
+  for device in $IP_DEVICES
+  do
+    if [[ "$device" != "Address" ]]; then
+      ping -q -c1 $device > /dev/null
+      ret=$?
+      if [[ "$ret" -eq "0" ]]; then
+        VALID_IP_DEVICES=$VALID_IP_DEVICES$device
+      fi
+    fi
+  done
+  CONNECTED_DEVICES=$CONNECTED_DEVICES$VALID_IP_DEVICES
+}; detect_ip_devices
 
 
 # Bold color list
