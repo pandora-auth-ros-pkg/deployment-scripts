@@ -3,7 +3,7 @@ ACTION=="add", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="0000", RUN+="/sbin/mo
 KERNEL=="ttyUSB*", ATTRS{product}=="FT232R USB UART", ATTRS{serial}=="A9ATH7FZ", SYMLINK+="dynamixel"
 KERNEL=="ttyUSB*", ATTRS{serial}=="A903DA5H", SYMLINK+="trax"
 KERNEL=="ttyUSB*", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="compass"
-KERNEL=="ttyACM*", ATTRS{manufacturer}=="Hokuyo Data Flex for USB", SYMLINK+="hokuyo"
+KERNEL=="ttyACM*", ATTRS{manufacturer}=="Hokuyo Data Flex for USB", SYMLINK+="hokuyo_04"
 KERNEL=="ttyACM*", ATTRS{serial}=="0123456789", ATTRS{manufacturer}=="mbed.org", ATTRS{product}=="CDC DEVICE", SYMLINK+="arm"
 KERNEL=="video*", ATTRS{serial}=="F88DC880", ATTRS{idProduct}=="081b", SYMLINK+="left_camera"
 KERNEL=="video*", ATTRS{serial}=="60134170", ATTRS{idProduct}=="081b", SYMLINK+="right_camera"
