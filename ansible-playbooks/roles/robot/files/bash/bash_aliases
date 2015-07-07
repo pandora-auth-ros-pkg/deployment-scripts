@@ -23,7 +23,7 @@ alias stabilizer='roslaunch pandora_launchers stabilizer.launch'
 
 # Hardware launchers
 alias motors='roslaunch pandora_motor_hardware_interface motor_hardware_interface_and_controllers.launch'
-alias linear='roslaunch pandora_linear_motor_hardware_interface linear_motor_hardware_interface_and_controllers.launch'
+alias linear='roslaunch pandora_linear_actuator_hardware_interface linear_actuator_hardware_interface_and_controllers.launch'
 alias pixy='roslaunch pandora_pixy_hardware_interface pixy_hardware_interface_and_controllers.launch'
 alias dynamixel='roslaunch pandora_dynamixel_hardware_interface dynamixel_hardware_interface_and_controllers.launch'
 alias imu='roslaunch pandora_imu_hardware_interface imu_hardware_interface_and_controllers.launch device:=trax'
