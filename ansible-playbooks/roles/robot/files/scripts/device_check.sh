@@ -18,11 +18,11 @@ detect_ip_devices()
       ping -q -c1 $device > /dev/null
       ret=$?
       if [[ "$ret" -eq "0" ]]; then
-        VALID_IP_DEVICES=$VALID_IP_DEVICES$device
+        VALID_IP_DEVICES="$VALID_IP_DEVICES $device"
       fi
     fi
   done
-  CONNECTED_DEVICES=$CONNECTED_DEVICES$VALID_IP_DEVICES
+  CONNECTED_DEVICES="$CONNECTED_DEVICES $VALID_IP_DEVICES"
 }; detect_ip_devices
 
 
