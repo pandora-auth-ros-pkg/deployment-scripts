@@ -5,26 +5,24 @@ DEVICE_LIST=$1
 
 CONNECTED_DEVICES=`ls /dev`
 HEADER1="Category"
+
 HEADER2="Devices"
 
 # Detect ip devices
 detect_ip_devices()
 {
   IP_REGEX=^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$
-  IP_DEVICES=$(arp | awk '{print $1}')
-  VALID_IP_DEVICES=""
+  IP_DEVICES=( "rpi2" "hokuyo_20" "hokuyo_04" )
+  VALID_IP_DEVICES=()
 
-  for device in $IP_DEVICES
+  for device in ${IP_DEVICES[@]}
   do
-    if [[ ("$device" != "Address") && ! ($device =~ $IP_REGEX) ]]; then
-      ping -q -c1 $device > /dev/null
-      ret=$?
-      if [[ "$ret" -eq "0" ]]; then
-        VALID_IP_DEVICES="$VALID_IP_DEVICES $device"
-      fi
+    ping -c 1 $device 1>/dev/null 2>/dev/null
+    if [ $? -eq 0 ]; then 
+        VALID_IP_DEVICES=("${VALID_IP_DEVICES[@]}" "${device}")
     fi
   done
-  CONNECTED_DEVICES="$CONNECTED_DEVICES $VALID_IP_DEVICES"
+  CONNECTED_DEVICES="$CONNECTED_DEVICES ${VALID_IP_DEVICES[@]}"
 }; detect_ip_devices
 
 
@@ -43,17 +41,17 @@ colors ()
   WHITE='\e[1;37m'
 }; colors
 
+
 # Stores the max string length of device category in $max
 max_name_length ()
 {
   MAX_N=${#HEADER1}
-
-  local device_row
+  
   while read device_row; do
     if [ "${device_row:0:1}" == "#" ]; then
       continue
     fi
-
+    
     local word
     local word_length
     for word in $device_row; do
@@ -65,13 +63,14 @@ max_name_length ()
   done <$DEVICE_LIST
 }
 
+
 # Main function
 device_check ()
 {
   echo -n "  "
-
+  
   max_name_length
-
+  
   local n
 
   # Add header
@@ -81,20 +80,20 @@ device_check ()
     echo -n " "
   done
   echo -e "${BOIBLACK}${HEADER2}${RESET}"
-
+  
   local device_long_row
   while read device_long_row; do
     # Ignore rows starting with "#"
     if [ "${device_long_row:0:1}" == "#" ]; then
       continue
     fi
-
+    
     echo -n "  "
-
-    # Seperate and echo words starting with "["
+    
+    # Seperate and echo words starting with "[" 
     local device_row=""
     local word
-    local category_length=""
+    local category_length
     for word in $device_long_row; do
       if [ "${word:0:1}" == "[" ]
         then
@@ -109,15 +108,15 @@ device_check ()
     for ((n=0; n<=((MAX_N-category_length+1)); n++)); do
       echo -n " "
     done
-
+    
     local device_found
     local device_print=""
-
+    
     # Check if the device is equal to any of the current devices
     local device
     for device in $device_row; do
       device_found=false
-
+      
       local connected_device
       for connected_device in $CONNECTED_DEVICES; do
         if [ $device == $connected_device ]; then
@@ -126,12 +125,12 @@ device_check ()
           break
         fi
       done
-
+      
       if [ "${device_found}" == false ]; then
         device_print="${device_print} ${RED}${device}${RESET}"
       fi
     done
-
+    
     echo -e "${device_print}${RESET}"
   done <$DEVICE_LIST
 }; device_check
