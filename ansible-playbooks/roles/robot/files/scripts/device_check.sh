@@ -10,11 +10,13 @@ HEADER2="Devices"
 # Detect ip devices
 detect_ip_devices()
 {
+  IP_REGEX=^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$
   IP_DEVICES=$(arp | awk '{print $1}')
   VALID_IP_DEVICES=""
+
   for device in $IP_DEVICES
   do
-    if [[ "$device" != "Address" ]]; then
+    if [[ ("$device" != "Address") && ! ($device =~ $IP_REGEX) ]]; then
       ping -q -c1 $device > /dev/null
       ret=$?
       if [[ "$ret" -eq "0" ]]; then
